@@ -1,0 +1,124 @@
+{
+  "variants": {
+    "facing=east,inverted=false,powered=false,powering=false": {
+      "model": "createmoreredstone:block/redstone_threshold",
+      "y": 270
+    },
+    "facing=east,inverted=false,powered=false,powering=true": {
+      "model": "createmoreredstone:block/redstone_threshold_on",
+      "y": 270
+    },
+    "facing=east,inverted=false,powered=true,powering=false": {
+      "model": "createmoreredstone:block/redstone_threshold",
+      "y": 270
+    },
+    "facing=east,inverted=false,powered=true,powering=true": {
+      "model": "createmoreredstone:block/redstone_threshold_on",
+      "y": 270
+    },
+    "facing=east,inverted=true,powered=false,powering=false": {
+      "model": "createmoreredstone:block/redstone_threshold",
+      "y": 270
+    },
+    "facing=east,inverted=true,powered=false,powering=true": {
+      "model": "createmoreredstone:block/redstone_threshold_on",
+      "y": 270
+    },
+    "facing=east,inverted=true,powered=true,powering=false": {
+      "model": "createmoreredstone:block/redstone_threshold",
+      "y": 270
+    },
+    "facing=east,inverted=true,powered=true,powering=true": {
+      "model": "createmoreredstone:block/redstone_threshold_on",
+      "y": 270
+    },
+    "facing=north,inverted=false,powered=false,powering=false": {
+      "model": "createmoreredstone:block/redstone_threshold",
+      "y": 180
+    },
+    "facing=north,inverted=false,powered=false,powering=true": {
+      "model": "createmoreredstone:block/redstone_threshold_on",
+      "y": 180
+    },
+    "facing=north,inverted=false,powered=true,powering=false": {
+      "model": "createmoreredstone:block/redstone_threshold",
+      "y": 180
+    },
+    "facing=north,inverted=false,powered=true,powering=true": {
+      "model": "createmoreredstone:block/redstone_threshold_on",
+      "y": 180
+    },
+    "facing=north,inverted=true,powered=false,powering=false": {
+      "model": "createmoreredstone:block/redstone_threshold",
+      "y": 180
+    },
+    "facing=north,inverted=true,powered=false,powering=true": {
+      "model": "createmoreredstone:block/redstone_threshold_on",
+      "y": 180
+    },
+    "facing=north,inverted=true,powered=true,powering=false": {
+      "model": "createmoreredstone:block/redstone_threshold",
+      "y": 180
+    },
+    "facing=north,inverted=true,powered=true,powering=true": {
+      "model": "createmoreredstone:block/redstone_threshold_on",
+      "y": 180
+    },
+    "facing=south,inverted=false,powered=false,powering=false": {
+      "model": "createmoreredstone:block/redstone_threshold"
+    },
+    "facing=south,inverted=false,powered=false,powering=true": {
+      "model": "createmoreredstone:block/redstone_threshold_on"
+    },
+    "facing=south,inverted=false,powered=true,powering=false": {
+      "model": "createmoreredstone:block/redstone_threshold"
+    },
+    "facing=south,inverted=false,powered=true,powering=true": {
+      "model": "createmoreredstone:block/redstone_threshold_on"
+    },
+    "facing=south,inverted=true,powered=false,powering=false": {
+      "model": "createmoreredstone:block/redstone_threshold"
+    },
+    "facing=south,inverted=true,powered=false,powering=true": {
+      "model": "createmoreredstone:block/redstone_threshold_on"
+    },
+    "facing=south,inverted=true,powered=true,powering=false": {
+      "model": "createmoreredstone:block/redstone_threshold"
+    },
+    "facing=south,inverted=true,powered=true,powering=true": {
+      "model": "createmoreredstone:block/redstone_threshold_on"
+    },
+    "facing=west,inverted=false,powered=false,powering=false": {
+      "model": "createmoreredstone:block/redstone_threshold",
+      "y": 90
+    },
+    "facing=west,inverted=false,powered=false,powering=true": {
+      "model": "createmoreredstone:block/redstone_threshold_on",
+      "y": 90
+    },
+    "facing=west,inverted=false,powered=true,powering=false": {
+      "model": "createmoreredstone:block/redstone_threshold",
+      "y": 90
+    },
+    "facing=west,inverted=false,powered=true,powering=true": {
+      "model": "createmoreredstone:block/redstone_threshold_on",
+      "y": 90
+    },
+    "facing=west,inverted=true,powered=false,powering=false": {
+      "model": "createmoreredstone:block/redstone_threshold",
+      "y": 90
+    },
+    "facing=west,inverted=true,powered=false,powering=true": {
+      "model": "createmoreredstone:block/redstone_threshold_on",
+      "y": 90
+    },
+    "facing=west,inverted=true,powered=true,powering=false": {
+      "model": "createmoreredstone:block/redstone_threshold",
+      "y": 90
+    },
+    "facing=west,inverted=true,powered=true,powering=true": {
+      "model": "createmoreredstone:block/redstone_threshold_on",
+      "y": 90
+    }
+  }
+}

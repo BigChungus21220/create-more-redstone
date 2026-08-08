@@ -1,0 +1,6 @@
+{
+  "parent": "createmoreredstone:block/diodes/redstone_threshold",
+  "textures": {
+    "0": "minecraft:block/redstone_torch"
+  }
+}

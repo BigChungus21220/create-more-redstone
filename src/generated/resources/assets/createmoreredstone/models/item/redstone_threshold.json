@@ -1,0 +1,6 @@
+{
+  "parent": "createmoreredstone:block/diodes/redstone_threshold",
+  "textures": {
+    "top": "createmoreredstone:block/diodes/redstone_threshold/item"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:plates/brass"
+    },
+    "Q": {
+      "item": "create:polished_rose_quartz"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "minecraft:andesite"
+    },
+    "T": {
+      "item": "minecraft:redstone_torch"
+    }
+  },
+  "pattern": [
+    " Q ",
+    "RBT",
+    "SSS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "createmoreredstone:redstone_threshold"
+  }
+}
