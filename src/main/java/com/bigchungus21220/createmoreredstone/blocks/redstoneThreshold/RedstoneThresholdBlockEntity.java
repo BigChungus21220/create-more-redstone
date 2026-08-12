@@ -1,4 +1,6 @@
-package com.bigchungus21220.createmoreredstone.blocks;
+package com.bigchungus21220.createmoreredstone.blocks.redstoneThreshold;
+
+import com.bigchungus21220.createmoreredstone.utils.InteractScreenBehavior;
 
 /*
 todo: implement custom screen to replace double slider nonsense
@@ -9,10 +11,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.equipment.clipboard.ClipboardCloneable;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
-import com.simibubi.create.content.redstone.diodes.BrassDiodeScrollValueBehaviour;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.blockEntity.behaviour.scrollValue.ScrollValueBehaviour;
 
 import java.util.List;
 
@@ -42,6 +42,7 @@ public class RedstoneThresholdBlockEntity extends SmartBlockEntity implements IH
     int upperThreshold;
 	int lowerThreshold;
     int outputSignal;
+    InteractScreenBehavior thresholdBehavior;
     protected int state;
 
 	public RedstoneThresholdBlockEntity(final BlockEntityType<?> type, final BlockPos pos, final BlockState state) {
@@ -56,23 +57,16 @@ public class RedstoneThresholdBlockEntity extends SmartBlockEntity implements IH
 
     @Override
     public void addBehaviours(final List<BlockEntityBehaviour> behaviours) {
-        /*this.upperThreshold = new BrassDiodeScrollValueBehaviour(
-                Component.translatable("block.createmoreredstone.redstone_threshold.upper_threshold"),
-                this, new RedstoneThresholdValueBoxTransform(true));
-        this.upperThreshold.between(0, 15);
-        this.upperThreshold.value = 15;
-        this.upperThreshold.withFormatter(this::format);
-        this.upperThreshold.withCallback(this::thresholdChanged);
-        behaviours.add(this.upperThreshold);
+        /*this.thresholdBehavior = new InteractScreenBehavior(
+            Component.translatable("block.createmoreredstone.redstone_threshold.upper_threshold"),
+            this,
+            (be) -> new RedstoneThresholdScreen(be),
+            new RedstoneThresholdValueBoxTransform(true)
+        );
 
-        this.lowerThreshold = new BrassDiodeScrollValueBehaviour(
-                Component.translatable("block.createmoreredstone.redstone_threshold.lower_threshold"),
-                this, new RedstoneThresholdValueBoxTransform(false));
-        this.lowerThreshold.between(0, 15);
-        this.lowerThreshold.value = 8;
-        this.lowerThreshold.withFormatter(this::format);
-        this.lowerThreshold.withCallback(this::thresholdChanged);
-        behaviours.add(this.lowerThreshold);*/
+        this.thresholdBehavior.withFormatter(this::format);
+        this.thresholdBehavior.withCallback(this::thresholdChanged);
+        behaviours.add(this.thresholdBehavior);*/
     }
 
     private String format(final int value) {
@@ -150,6 +144,18 @@ public class RedstoneThresholdBlockEntity extends SmartBlockEntity implements IH
 
     public int getMaxLevel() {
         return 15;
+    }
+
+    public boolean isInverted() {
+        return this.getBlockState().getValue(RedstoneThresholdBlock.INVERTED);
+    }
+
+    public boolean isPowered() {
+        return this.getBlockState().getValue(RedstoneThresholdBlock.POWERED);
+    }
+
+    public void setInverted(boolean inverted) {
+        this.getBlockState().setValue(RedstoneThresholdBlock.INVERTED, inverted);
     }
     
 	private static class RedstoneThresholdValueBoxTransform extends ValueBoxTransform {

@@ -1,8 +1,8 @@
 package com.bigchungus21220.createmoreredstone.index;
 
 import com.bigchungus21220.createmoreredstone.CreateMoreRedstone;
-import com.bigchungus21220.createmoreredstone.blocks.RedstoneThresholdBlock;
-import com.bigchungus21220.createmoreredstone.blocks.RedstoneThresholdBlockStateGen;
+import com.bigchungus21220.createmoreredstone.blocks.redstoneThreshold.RedstoneThresholdBlock;
+import com.bigchungus21220.createmoreredstone.blocks.redstoneThreshold.RedstoneThresholdBlockStateGen;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.content.redstone.diodes.AbstractDiodeGenerator;

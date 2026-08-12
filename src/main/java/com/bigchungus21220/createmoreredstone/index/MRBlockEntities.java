@@ -1,7 +1,7 @@
 package com.bigchungus21220.createmoreredstone.index;
 
 import com.bigchungus21220.createmoreredstone.CreateMoreRedstone;
-import com.bigchungus21220.createmoreredstone.blocks.RedstoneThresholdBlockEntity;
+import com.bigchungus21220.createmoreredstone.blocks.redstoneThreshold.RedstoneThresholdBlockEntity;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 
 public class MRBlockEntities {

@@ -1,4 +1,4 @@
-package com.bigchungus21220.createmoreredstone.blocks;
+package com.bigchungus21220.createmoreredstone.blocks.redstoneThreshold;
 
 import com.bigchungus21220.createmoreredstone.CreateMoreRedstone;
 import com.tterrag.registrate.providers.DataGenContext;

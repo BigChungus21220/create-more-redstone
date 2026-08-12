@@ -1,10 +1,17 @@
-package com.bigchungus21220.createmoreredstone.blocks;
+package com.bigchungus21220.createmoreredstone.blocks.redstoneThreshold;
 
 import com.bigchungus21220.createmoreredstone.index.MRBlockEntities;
 import com.bigchungus21220.createmoreredstone.index.MRBlockShapes;
 import com.mojang.serialization.MapCodec;
+import com.simibubi.create.AllItems;
 import com.simibubi.create.content.redstone.diodes.AbstractDiodeBlock;
+import com.simibubi.create.content.redstone.thresholdSwitch.ThresholdSwitchBlockEntity;
+import com.simibubi.create.content.redstone.thresholdSwitch.ThresholdSwitchScreen;
 import com.simibubi.create.foundation.block.IBE;
+
+import net.createmod.catnip.gui.ScreenOpener;
+import net.createmod.catnip.platform.CatnipServices;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
@@ -31,6 +38,9 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
@@ -103,14 +113,17 @@ public class RedstoneThresholdBlock extends AbstractDiodeBlock implements IBE<Re
 
     @Override
     protected ItemInteractionResult useItemOn(final ItemStack itemStack, final BlockState blockState, final Level level, final BlockPos blockPos, final Player player, final InteractionHand interactionHand, final BlockHitResult blockHitResult) {
-        level.setBlock(blockPos, this.getUpdatedBlockstate(blockPos, blockState.cycle(INVERTED), level), 2);
-        level.updateNeighborsAt(blockPos, blockState.getBlock());
-
-        final float f = !blockState.getValue(INVERTED) ? 0.6F : 0.5F;
-        level.playSound(null, blockPos, SoundEvents.LEVER_CLICK, SoundSource.BLOCKS, 0.3F, f);
-
-        return ItemInteractionResult.SUCCESS;
+		if (player != null && AllItems.WRENCH.isIn(itemStack))
+			return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+		CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> withBlockEntityDo(level, blockPos, be -> this.displayScreen(be, player)));
+		return ItemInteractionResult.SUCCESS;
     }
+
+	@OnlyIn(value = Dist.CLIENT)
+	protected void displayScreen(RedstoneThresholdBlockEntity be, Player player) {
+		if (player instanceof LocalPlayer)
+			ScreenOpener.open(new RedstoneThresholdScreen(be));
+	}
 
     @Override
     public boolean canConnectRedstone(final BlockState state, final BlockGetter level, final BlockPos pos, @Nullable final Direction direction) {
