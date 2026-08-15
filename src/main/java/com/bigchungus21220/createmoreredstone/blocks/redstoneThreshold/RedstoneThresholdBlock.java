@@ -5,8 +5,6 @@ import com.bigchungus21220.createmoreredstone.index.MRBlockShapes;
 import com.mojang.serialization.MapCodec;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.content.redstone.diodes.AbstractDiodeBlock;
-import com.simibubi.create.content.redstone.thresholdSwitch.ThresholdSwitchBlockEntity;
-import com.simibubi.create.content.redstone.thresholdSwitch.ThresholdSwitchScreen;
 import com.simibubi.create.foundation.block.IBE;
 
 import net.createmod.catnip.gui.ScreenOpener;
@@ -16,8 +14,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;

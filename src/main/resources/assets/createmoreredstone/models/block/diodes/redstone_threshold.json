@@ -7,8 +7,8 @@
 		"0": "block/redstone_torch_off",
 		"1": "block/smooth_stone",
 		"2": "createmoreredstone:block/diodes/redstone_threshold/antennas",
-		"top": "createmoreredstone:block/diodes/redstone_threshold/idle",
-		"particle": "createmoreredstone:block/diodes/redstone_threshold/idle"
+		"particle": "createmoreredstone:block/diodes/redstone_threshold/idle",
+		"top": "createmoreredstone:block/diodes/redstone_threshold/idle"
 	},
 	"elements": [
 		{
@@ -94,15 +94,15 @@
 		},
 		{
 			"from": [3, 2, 4],
-			"to": [13, 3, 9],
+			"to": [13, 3, 10],
 			"rotation": {"angle": 0, "axis": "y", "origin": [3, 2, 6]},
 			"faces": {
-				"north": {"uv": [3, 8, 13, 9], "texture": "#top"},
-				"east": {"uv": [3, 4, 4, 9], "rotation": 90, "texture": "#top"},
-				"south": {"uv": [3, 8, 13, 9], "texture": "#top"},
-				"west": {"uv": [12, 4, 13, 9], "rotation": 90, "texture": "#top"},
-				"up": {"uv": [3, 4, 13, 9], "texture": "#top"},
-				"down": {"uv": [3, 4, 13, 9], "texture": "#top"}
+				"north": {"uv": [3, 4, 13, 5], "texture": "#top"},
+				"east": {"uv": [3, 4, 4, 10], "rotation": 90, "texture": "#top"},
+				"south": {"uv": [3, 9, 13, 10], "texture": "#top"},
+				"west": {"uv": [12, 4, 13, 10], "rotation": 90, "texture": "#top"},
+				"up": {"uv": [3, 4, 13, 10], "texture": "#top"},
+				"down": {"uv": [3, 4, 13, 10], "texture": "#top"}
 			}
 		}
 	],
@@ -113,7 +113,7 @@
 			"scale": [0.625, 0.625, 0.625]
 		},
 		"fixed": {
-			"rotation": [270, 0, 0],
+			"rotation": [-90, 0, 0],
 			"translation": [0, 0, -5],
 			"scale": [0.5, 0.5, 0.5]
 		}

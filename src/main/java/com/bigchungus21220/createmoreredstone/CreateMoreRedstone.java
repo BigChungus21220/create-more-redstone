@@ -6,6 +6,7 @@ import com.mojang.logging.LogUtils;
 import com.bigchungus21220.createmoreredstone.index.MRBlockEntities;
 import com.bigchungus21220.createmoreredstone.index.MRBlockShapes;
 import com.bigchungus21220.createmoreredstone.index.MRBlocks;
+import com.bigchungus21220.createmoreredstone.index.MRPackets;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -55,6 +56,7 @@ public class CreateMoreRedstone {
         MRBlocks.register();
         MRBlockEntities.register();
         MRBlockShapes.register();
+        MRPackets.register();
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

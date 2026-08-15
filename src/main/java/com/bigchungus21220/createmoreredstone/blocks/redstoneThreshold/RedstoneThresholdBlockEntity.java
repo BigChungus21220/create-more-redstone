@@ -1,10 +1,7 @@
 package com.bigchungus21220.createmoreredstone.blocks.redstoneThreshold;
 
-import com.bigchungus21220.createmoreredstone.utils.InteractScreenBehavior;
-
 /*
-todo: implement custom screen to replace double slider nonsense
-maybe just steal the code for the threshold switch
+todo: add hover text, fix value cloning
 */
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -13,6 +10,8 @@ import com.simibubi.create.content.equipment.clipboard.ClipboardCloneable;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+
+import static com.bigchungus21220.createmoreredstone.CreateMoreRedstone.LOGGER;
 
 import java.util.List;
 
@@ -42,8 +41,6 @@ public class RedstoneThresholdBlockEntity extends SmartBlockEntity implements IH
     int upperThreshold;
 	int lowerThreshold;
     int outputSignal;
-    InteractScreenBehavior thresholdBehavior;
-    protected int state;
 
 	public RedstoneThresholdBlockEntity(final BlockEntityType<?> type, final BlockPos pos, final BlockState state) {
         super(type, pos, state);
@@ -55,19 +52,34 @@ public class RedstoneThresholdBlockEntity extends SmartBlockEntity implements IH
         this.updateSignal();
     }
 
-    @Override
-    public void addBehaviours(final List<BlockEntityBehaviour> behaviours) {
-        /*this.thresholdBehavior = new InteractScreenBehavior(
-            Component.translatable("block.createmoreredstone.redstone_threshold.upper_threshold"),
-            this,
-            (be) -> new RedstoneThresholdScreen(be),
-            new RedstoneThresholdValueBoxTransform(true)
-        );
+    	@Override
+	protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+		upperThreshold = compound.getInt("UpperThreshold");
+		lowerThreshold = compound.getInt("LowerThreshold");
+		outputSignal = compound.getInt("OutputSignal");
+		super.read(compound, registries, clientPacket);
+	}
 
-        this.thresholdBehavior.withFormatter(this::format);
-        this.thresholdBehavior.withCallback(this::thresholdChanged);
-        behaviours.add(this.thresholdBehavior);*/
-    }
+	protected void writeCommon(CompoundTag compound) {
+		compound.putInt("UpperThreshold", upperThreshold);
+		compound.putInt("LowerThreshold", lowerThreshold);
+		compound.putInt("OutputSignal", outputSignal);
+	}
+
+	@Override
+	public void write(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
+		writeCommon(compound);
+		super.write(compound, registries, clientPacket);
+	}
+
+	@Override
+	public void writeSafe(CompoundTag compound, HolderLookup.Provider registries) {
+		writeCommon(compound);
+		super.writeSafe(compound, registries);
+	}
+
+    @Override
+    public void addBehaviours(final List<BlockEntityBehaviour> behaviours) {}
 
     private String format(final int value) {
 		return value + "";
@@ -147,15 +159,23 @@ public class RedstoneThresholdBlockEntity extends SmartBlockEntity implements IH
     }
 
     public boolean isInverted() {
-        return this.getBlockState().getValue(RedstoneThresholdBlock.INVERTED);
+        LOGGER.info("reading inverted state" + getBlockState().getValue(RedstoneThresholdBlock.INVERTED));
+        return getBlockState().getValue(RedstoneThresholdBlock.INVERTED);
     }
 
     public boolean isPowered() {
-        return this.getBlockState().getValue(RedstoneThresholdBlock.POWERED);
+        return getBlockState().getValue(RedstoneThresholdBlock.POWERED);
     }
 
     public void setInverted(boolean inverted) {
-        this.getBlockState().setValue(RedstoneThresholdBlock.INVERTED, inverted);
+        BlockState bs = getBlockState();
+        if (bs.getValue(RedstoneThresholdBlock.INVERTED) == inverted)
+            return;
+        BlockState newState = bs.setValue(RedstoneThresholdBlock.INVERTED, inverted);
+        
+        this.level.setBlock(this.worldPosition, newState, 3);
+
+        LOGGER.info("setting inverted state to " + inverted);
     }
     
 	private static class RedstoneThresholdValueBoxTransform extends ValueBoxTransform {
