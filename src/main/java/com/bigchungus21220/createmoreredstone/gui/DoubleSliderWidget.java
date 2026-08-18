@@ -3,10 +3,14 @@ package com.bigchungus21220.createmoreredstone.gui;
 import java.util.function.BiConsumer;
 
 import com.bigchungus21220.createmoreredstone.index.MRGuiTextures;
+import com.bigchungus21220.createmoreredstone.index.MRSprites;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.simibubi.create.AllSoundEvents;
 
 import net.createmod.catnip.gui.widget.AbstractSimiWidget;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 
 public class DoubleSliderWidget extends AbstractSimiWidget {
 
@@ -23,6 +27,8 @@ public class DoubleSliderWidget extends AbstractSimiWidget {
     protected int rightPos; // ^
     protected int leftValue; // the tick the slider is on (not the output value)
     protected int rightValue; // ^
+
+    protected int barWidth;
 
     protected Focus focus;
     protected BiConsumer<Integer, Integer> onChanged;
@@ -46,11 +52,41 @@ public class DoubleSliderWidget extends AbstractSimiWidget {
         this.onChanged = (a,b) -> {}; 
         setLeft(leftValue + 1 - minValue, false);
         setRight(rightValue - minValue, false);
+        barWidth = step_size*(steps-1) + 7;
 	}
 
 	@Override
 	public void doRender(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
 		if (visible) {
+            MRSprites between = leftValue < rightValue ? MRSprites.REDSTONE_BAR : MRSprites.REDSTONE_BAR_LIT; 
+            MRSprites betwaint = leftValue < rightValue ? MRSprites.REDSTONE_BAR_LIT : MRSprites.REDSTONE_BAR;
+            int lowerPos = Math.min(leftPos, rightPos);
+            int upperPos = Math.max(leftPos, rightPos);
+
+            betwaint.renderClipped(
+                graphics, 
+                getX() + 1, getY() - 1, 
+                barWidth, 14, 
+                0, 0, 
+                barWidth - lowerPos - 3, 0
+            );
+
+            between.renderClipped(
+                graphics, 
+                getX() + 1, getY() - 1, 
+                barWidth, 14, 
+                lowerPos + 3, 0, 
+                barWidth - upperPos - 4, 0
+            );
+
+            betwaint.renderClipped(
+                graphics, 
+                getX() + 1, getY() - 1, 
+                barWidth, 14, 
+                upperPos + 4, 0, 
+                0, 0
+            );
+
             Focus hover = getHover(mouseX, mouseY);
             boolean leftFocus = focus == Focus.Left || (hover == Focus.Left && focus != Focus.Right);
             boolean rightFocus = focus == Focus.Right || (hover == Focus.Right && focus != Focus.Left);
@@ -108,6 +144,25 @@ public class DoubleSliderWidget extends AbstractSimiWidget {
         return rightValue + minValue;
     }
 
+    // this override is to disable the automatic sound event
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (this.active && this.visible) {
+            if (this.isValidClickButton(button)) {
+                boolean flag = this.clicked(mouseX, mouseY);
+                if (flag) {
+                    //this.playDownSound(Minecraft.getInstance().getSoundManager());
+                    this.onClick(mouseX, mouseY, button);
+                    return true;
+                }
+            }
+
+            return false;
+        } else {
+            return false;
+        }
+    }
+
     @Override
 	public void onClick(double mouseX, double mouseY, int button) {
 		focus = getHover((int)mouseX, (int)mouseY);
@@ -118,12 +173,24 @@ public class DoubleSliderWidget extends AbstractSimiWidget {
         focus = Focus.None;
     }
 
+    protected void playTick(int value) {
+        Minecraft.getInstance()
+            .getSoundManager()
+            .play(SimpleSoundInstance.forUI(AllSoundEvents.SCROLL_VALUE.getMainEvent(), 1.5f + 0.1f*value/steps));
+    }
+
     @Override
     protected void onDrag(double mouseX, double mouseY, double dragX, double dragY) {
         if (focus == Focus.Left) {
-            setLeft(valueFromMouse(mouseX, rightValue), true);
+            int value = valueFromMouse(mouseX, rightValue);
+            if (leftValue != value) playTick(value);
+
+            setLeft(value, true);
         } else if (focus == Focus.Right) {
-            setRight(valueFromMouse(mouseX, leftValue), true);
+            int value = valueFromMouse(mouseX, leftValue);
+            if (rightValue != value) playTick(value);
+
+            setRight(value, true);
         }
     }
 

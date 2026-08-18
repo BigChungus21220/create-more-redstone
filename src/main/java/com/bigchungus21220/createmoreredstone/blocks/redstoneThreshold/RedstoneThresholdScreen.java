@@ -26,7 +26,7 @@ public class RedstoneThresholdScreen extends AbstractSimiScreen {
 	private int lastModification;
 
 	public RedstoneThresholdScreen(SmartBlockEntity be) {
-		super(CreateLang.translateDirect("gui.redstone_threshold.title"));
+		super(Component.translatable("gui.createmoreredstone.redstone_threshold.title"));
 		background = MRGuiTextures.REDSTONE_THRESHOLD;
 		lastModification = -1;
 		this.blockEntity = switch (be) {

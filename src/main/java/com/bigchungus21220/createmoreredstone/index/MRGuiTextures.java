@@ -25,6 +25,7 @@ public enum MRGuiTextures implements ScreenElement, TextureSheetSegment {
     WIDGET_DOUBLE_SLIDER_RIGHT_ARROW_HOVER("widgets", 9, 12, 9, 12),
     WIDGET_DOUBLE_SLIDER_STOP_HOVER("widgets", 18, 12, 9, 12);
 
+
 	public static final int FONT_COLOR = 0x575F7A;
 
 	public final ResourceLocation location;

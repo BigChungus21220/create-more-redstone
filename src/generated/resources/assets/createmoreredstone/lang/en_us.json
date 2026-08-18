@@ -1,3 +1,4 @@
 {
-  "block.createmoreredstone.redstone_threshold": "Redstone Threshold"
+  "block.createmoreredstone.redstone_threshold": "Redstone Threshold",
+  "gui.createmoreredstone.redstone_threshold.title": "Redstone Threshold"
 }

@@ -1,7 +1,12 @@
 package com.bigchungus21220.createmoreredstone.blocks.redstoneThreshold;
 
 /*
-todo: add hover text, fix value cloning
+todo:
+add hover text
+set default values
+convert readout to translatable text
+add ponder screen + hover info
+improve model
 */
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -28,7 +33,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Block;
@@ -136,10 +140,15 @@ public class RedstoneThresholdBlockEntity extends SmartBlockEntity implements IH
             return true;
         } else {
             final BlockState blockState = this.getBlockState();
-            if (blockState.getValue(RedstoneThresholdBlock.INVERTED) != tag.getBoolean("Inverted")) {
-                this.level.setBlockAndUpdate(this.worldPosition, blockState.cycle(RedstoneThresholdBlock.INVERTED));
+            boolean inverted = tag.getBoolean("Inverted");
+            if (blockState.getValue(RedstoneThresholdBlock.INVERTED) != inverted) {
+                this.level.setBlockAndUpdate(this.worldPosition, blockState.setValue(RedstoneThresholdBlock.INVERTED, inverted));
             }
-
+            if (tag.contains("LowerThreshold"))
+                this.lowerThreshold = tag.getInt("LowerThreshold");
+            if (tag.contains("UpperThreshold"))
+                this.upperThreshold = tag.getInt("UpperThreshold");
+            this.sendData();
             return true;
         }
     }
@@ -147,6 +156,8 @@ public class RedstoneThresholdBlockEntity extends SmartBlockEntity implements IH
     @Override
     public boolean writeToClipboard(final HolderLookup.@NotNull Provider provider, final CompoundTag tag, final Direction direction) {
         tag.putBoolean("Inverted", this.getBlockState().getOptionalValue(RedstoneThresholdBlock.INVERTED).orElse(false));
+        tag.putInt("LowerThreshold", lowerThreshold);
+        tag.putInt("UpperThreshold", upperThreshold);
         return true;
     }
 
